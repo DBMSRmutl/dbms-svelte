@@ -52,3 +52,6 @@ erDiagram
     SUB_DISTRICT }|--|| DISTRICT : contains
     DISTRICT }|--|| PROVINCE : contains
 ```
+Project Owner: Kwanchai
+Database and API Designed and Development: Methapon Metanipat
+UI Designed: Puriphatt
