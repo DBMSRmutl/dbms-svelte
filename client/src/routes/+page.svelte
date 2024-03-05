@@ -1,8 +1,18 @@
 <script lang="ts">
+  import { io } from 'socket.io-client';
+  import { invalidateAll } from '$app/navigation';
+  import { env } from '$env/dynamic/public';
   import Card from '$lib/components/card.svelte';
   import BannerImage from '$lib/assets/banner.jpg';
 
   let { data } = $props();
+
+  $effect(() => {
+    const socket = io(`${env.PUBLIC_SOCKET_URL}`);
+    socket.on('OrderReceived', invalidateAll);
+    socket.on('OrderCanceled', invalidateAll);
+    return () => socket.close();
+  });
 </script>
 
 <section>
