@@ -24,41 +24,33 @@
 
   let provinceOption = data.province;
 
-  let villageOption = $derived(
-    (async () => {
-      if (subDistrictSelected.length > 0) {
-        const res = await fetch(
-          `${env.PUBLIC_BACKEND_URL}/village?provinceId=${provinceSelected}&districtId=${districtSelected}&subDistrictId=${subDistrictSelected}`,
-        );
-        return await res.json();
-      }
-      return [];
-    })(),
-  );
+  let villageOption = $derived.by(async () => {
+    if (subDistrictSelected.length > 0) {
+      const res = await fetch(
+        `${env.PUBLIC_BACKEND_URL}/village?provinceId=${provinceSelected}&districtId=${districtSelected}&subDistrictId=${subDistrictSelected}`,
+      );
+      return await res.json();
+    }
+    return [];
+  });
 
-  let subDistrictOption = $derived(
-    (async () => {
-      if (districtSelected.length > 0) {
-        const res = await fetch(
-          `${env.PUBLIC_BACKEND_URL}/sub-district?provinceId=${provinceSelected}&districtId=${districtSelected}`,
-        );
-        return await res.json();
-      }
-      return [];
-    })(),
-  );
+  let subDistrictOption = $derived.by(async () => {
+    if (districtSelected.length > 0) {
+      const res = await fetch(
+        `${env.PUBLIC_BACKEND_URL}/sub-district?provinceId=${provinceSelected}&districtId=${districtSelected}`,
+      );
+      return await res.json();
+    }
+    return [];
+  });
 
-  let districtOption = $derived(
-    (async () => {
-      if (provinceSelected.length > 0) {
-        const res = await fetch(
-          `${env.PUBLIC_BACKEND_URL}/district?provinceId=${provinceSelected}`,
-        );
-        return await res.json();
-      }
-      return [];
-    })(),
-  );
+  let districtOption = $derived.by(async () => {
+    if (provinceSelected.length > 0) {
+      const res = await fetch(`${env.PUBLIC_BACKEND_URL}/district?provinceId=${provinceSelected}`);
+      return await res.json();
+    }
+    return [];
+  });
 
   async function getProvince(zip: string) {
     if (zip.length === 5) {
