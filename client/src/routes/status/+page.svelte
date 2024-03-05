@@ -11,12 +11,9 @@
 
   $effect(() => {
     const socket = io(`${env.PUBLIC_SOCKET_URL}`);
-
     socket.on('OrderReceived', invalidateAll);
     socket.on('OrderCanceled', invalidateAll);
-    return () => {
-      socket.close();
-    };
+    return () => socket.close();
   });
 
   async function changeStatus(id: string, status: OrderStatus) {
